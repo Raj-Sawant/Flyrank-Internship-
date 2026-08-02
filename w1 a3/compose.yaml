@@ -1,0 +1,35 @@
+# compose.yaml — start the whole stack with: docker compose up
+
+services:
+
+  # ── The Node.js API ──────────────────────────────────────────────────────
+  api:
+    build: .
+    ports:
+      - "3000:3000"
+    environment:
+      # Inside the compose network the database is reachable by service name "db"
+      DATABASE_URL: postgres://postgres:dev@db:5432/tasks
+      PORT: 3000
+    depends_on:
+      db:
+        condition: service_healthy   # wait until Postgres is actually ready
+    restart: on-failure
+
+  # ── The PostgreSQL database ──────────────────────────────────────────────
+  db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_PASSWORD: dev
+      POSTGRES_DB: tasks
+    volumes:
+      - taskdata:/var/lib/postgresql/data   # data survives docker compose down
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d tasks"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+# Named volume — rows persist across full stack restarts
+volumes:
+  taskdata:
