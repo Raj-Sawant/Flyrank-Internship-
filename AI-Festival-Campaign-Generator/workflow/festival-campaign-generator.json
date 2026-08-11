@@ -1,0 +1,1111 @@
+{
+  "name": "🎁 AI Festival Campaign Generator PRO - 4-Agent Production Engine",
+  "nodes": [
+    {
+      "parameters": {
+        "jsCode": "// Carry binary images forward from Package Images + grab folder ID\nconst pkg = $('📦 Package Images1').first();\nconst folder = $input.first().json;\n\nreturn [{\n  json: {\n    ...pkg.json,\n    driveFolderId: folder.id,\n    driveFolderName: folder.name,\n    driveFolderLink: 'https://drive.google.com/drive/folders/' + folder.id\n  },\n  binary: pkg.binary || {}\n}];"
+      },
+      "id": "24292816-af65-40ef-8b65-1d3175f5e477",
+      "name": "🔗 Attach Binary + Folder ID",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1136,
+        6576
+      ]
+    },
+    {
+      "parameters": {
+        "inputDataFieldName": "festiveVisual",
+        "name": "={{ $('🔗 Attach Binary + Folder ID').first().json.festival }}_Product_Visual.png",
+        "driveId": {
+          "__rl": true,
+          "mode": "list",
+          "value": "My Drive"
+        },
+        "folderId": "={{ $('🔗 Attach Binary + Folder ID').first().json.driveFolderId }}",
+        "options": {}
+      },
+      "id": "dc206a27-dbc7-4d8b-bfa8-d41bb421b5ec",
+      "name": "☁️ Upload Festival Visual",
+      "type": "n8n-nodes-base.googleDrive",
+      "typeVersion": 3,
+      "position": [
+        1488,
+        6464
+      ],
+      "credentials": {
+        "googleDriveOAuth2Api": {
+          "id": "CAhkYV0qqMuaxLRj",
+          "name": "Google Drive OAuth2 API"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "inputDataFieldName": "storyVisual",
+        "name": "={{ $('🔗 Attach Binary + Folder ID').first().json.festival }}_Story_Visual.png",
+        "driveId": {
+          "__rl": true,
+          "mode": "list",
+          "value": "My Drive"
+        },
+        "folderId": "={{ $('🔗 Attach Binary + Folder ID').first().json.driveFolderId }}",
+        "options": {}
+      },
+      "id": "268400ae-9408-46ec-a90d-c55fbaffb9e6",
+      "name": "☁️ Upload Story Visual",
+      "type": "n8n-nodes-base.googleDrive",
+      "typeVersion": 3,
+      "position": [
+        1488,
+        6592
+      ],
+      "credentials": {
+        "googleDriveOAuth2Api": {
+          "id": "CAhkYV0qqMuaxLRj",
+          "name": "Google Drive OAuth2 API"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "inputDataFieldName": "bannerVisual",
+        "name": "={{ $('🔗 Attach Binary + Folder ID').first().json.festival }}_Ad_Banner.png",
+        "driveId": {
+          "__rl": true,
+          "mode": "list",
+          "value": "My Drive"
+        },
+        "folderId": "={{ $('🔗 Attach Binary + Folder ID').first().json.driveFolderId }}",
+        "options": {}
+      },
+      "id": "aa6fa1c1-c114-472e-9f2d-945e5db4ce88",
+      "name": "☁️ Upload Ad Banner",
+      "type": "n8n-nodes-base.googleDrive",
+      "typeVersion": 3,
+      "position": [
+        1488,
+        6736
+      ],
+      "credentials": {
+        "googleDriveOAuth2Api": {
+          "id": "CAhkYV0qqMuaxLRj",
+          "name": "Google Drive OAuth2 API"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "numberInputs": 3
+      },
+      "id": "4fce296c-0975-47c2-9813-1f378dac0e47",
+      "name": "🔗 Wait for All Uploads",
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3,
+      "position": [
+        1840,
+        6576
+      ]
+    },
+    {
+      "parameters": {
+        "formTitle": "🎁 AI Festival Campaign Generator",
+        "formDescription": "Select festival + enter product details. AI generates complete festival campaign — themed ad copies, email sequences, social posts, WhatsApp offers, influencer briefs, discount strategy, AI-generated festive visuals.",
+        "formFields": {
+          "values": [
+            {
+              "fieldLabel": "Festival",
+              "fieldType": "dropdown",
+              "fieldOptions": {
+                "values": [
+                  {
+                    "option": "Diwali"
+                  },
+                  {
+                    "option": "Holi"
+                  },
+                  {
+                    "option": "Christmas"
+                  },
+                  {
+                    "option": "New Year"
+                  },
+                  {
+                    "option": "Republic Day"
+                  },
+                  {
+                    "option": "Independence Day"
+                  },
+                  {
+                    "option": "Womens Day"
+                  },
+                  {
+                    "option": "Mothers Day"
+                  },
+                  {
+                    "option": "Fathers Day"
+                  },
+                  {
+                    "option": "Valentines Day"
+                  },
+                  {
+                    "option": "Raksha Bandhan"
+                  },
+                  {
+                    "option": "Navratri / Durga Puja"
+                  },
+                  {
+                    "option": "Eid"
+                  },
+                  {
+                    "option": "Onam"
+                  },
+                  {
+                    "option": "Pongal / Makar Sankranti"
+                  },
+                  {
+                    "option": "Baisakhi"
+                  },
+                  {
+                    "option": "Amazon Great Indian Festival"
+                  },
+                  {
+                    "option": "Flipkart Big Billion Days"
+                  },
+                  {
+                    "option": "Black Friday / Cyber Monday"
+                  },
+                  {
+                    "option": "End of Season Sale"
+                  }
+                ]
+              },
+              "requiredField": true
+            },
+            {
+              "fieldLabel": "Product Name",
+              "fieldType": "string",
+              "placeholder": "e.g. GlowVeda Vitamin C Serum",
+              "requiredField": true
+            },
+            {
+              "fieldLabel": "Product Category",
+              "fieldType": "dropdown",
+              "fieldOptions": {
+                "values": [
+                  {
+                    "option": "Skincare & Beauty"
+                  },
+                  {
+                    "option": "Health & Wellness"
+                  },
+                  {
+                    "option": "Fashion & Apparel"
+                  },
+                  {
+                    "option": "Food & Beverages"
+                  },
+                  {
+                    "option": "Home & Living"
+                  },
+                  {
+                    "option": "Electronics & Gadgets"
+                  },
+                  {
+                    "option": "Fitness & Sports"
+                  },
+                  {
+                    "option": "Baby & Kids"
+                  },
+                  {
+                    "option": "Jewellery & Accessories"
+                  },
+                  {
+                    "option": "Gifting & Hampers"
+                  }
+                ]
+              },
+              "requiredField": true
+            },
+            {
+              "fieldLabel": "Product Details & Key Features",
+              "fieldType": "textarea",
+              "placeholder": "Paste everything: ingredients, features, benefits, size, variants, certifications, what makes it a great festival gift/purchase",
+              "requiredField": true
+            },
+            {
+              "fieldLabel": "MRP & Festival Offer",
+              "fieldType": "string",
+              "placeholder": "e.g. MRP ₹599 → Festival Price ₹399 (33% off) or Buy 2 Get 1 Free",
+              "requiredField": true
+            },
+            {
+              "fieldLabel": "Target Audience",
+              "fieldType": "textarea",
+              "placeholder": "e.g. Women 22-35 metro cities, gift buyers, self-purchase skincare enthusiasts, budget ₹500-2000",
+              "requiredField": true
+            },
+            {
+              "fieldLabel": "Brand Name",
+              "fieldType": "string",
+              "placeholder": "e.g. GlowVeda",
+              "requiredField": true
+            },
+            {
+              "fieldLabel": "Brand Voice",
+              "fieldType": "dropdown",
+              "fieldOptions": {
+                "values": [
+                  {
+                    "option": "Warm & Festive"
+                  },
+                  {
+                    "option": "Bold & Exciting"
+                  },
+                  {
+                    "option": "Premium & Luxe"
+                  },
+                  {
+                    "option": "Fun & Playful"
+                  },
+                  {
+                    "option": "Traditional & Cultural"
+                  },
+                  {
+                    "option": "Modern & Minimalist"
+                  }
+                ]
+              },
+              "requiredField": true
+            },
+            {
+              "fieldLabel": "Campaign Duration (Days)",
+              "fieldType": "dropdown",
+              "fieldOptions": {
+                "values": [
+                  {
+                    "option": "3 Days (Flash Sale)"
+                  },
+                  {
+                    "option": "5 Days (Short Campaign)"
+                  },
+                  {
+                    "option": "7 Days (Standard)"
+                  },
+                  {
+                    "option": "10 Days (Extended)"
+                  },
+                  {
+                    "option": "14 Days (Full Festival)"
+                  },
+                  {
+                    "option": "21 Days (Pre + During + Post)"
+                  }
+                ]
+              },
+              "requiredField": true
+            },
+            {
+              "fieldLabel": "Competitor Brands",
+              "fieldType": "string",
+              "placeholder": "e.g. Minimalist, Plum, Dot & Key"
+            },
+            {
+              "fieldLabel": "Available On",
+              "fieldType": "string",
+              "placeholder": "e.g. Own website, Amazon, Flipkart, Nykaa",
+              "requiredField": true
+            },
+            {
+              "fieldLabel": "Brand Owner Name",
+              "fieldType": "string",
+              "placeholder": "Brand founder/owner",
+              "requiredField": true
+            },
+            {
+              "fieldLabel": "Brand Owner Email",
+              "fieldType": "string",
+              "placeholder": "owner@brand.com",
+              "requiredField": true
+            },
+            {
+              "fieldLabel": "Your Name",
+              "fieldType": "string",
+              "placeholder": "Your name (agency)",
+              "requiredField": true
+            },
+            {
+              "fieldLabel": "Agency Name",
+              "fieldType": "string",
+              "placeholder": "e.g. LanceMart AI",
+              "requiredField": true
+            },
+            {
+              "fieldLabel": "Your Email",
+              "fieldType": "string",
+              "placeholder": "you@agency.com",
+              "requiredField": true
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "007f1cb0-8777-4c09-8a41-dc6d01b6b87e",
+      "name": "📋 Festival Campaign Form1",
+      "type": "n8n-nodes-base.formTrigger",
+      "typeVersion": 2.2,
+      "position": [
+        -1328,
+        6736
+      ],
+      "webhookId": "312db882-606d-4250-9e98-f794b655530a"
+    },
+    {
+      "parameters": {
+        "jsCode": "const f=$input.first().json;const g=(k)=>(f[k]||'').trim();\nconst campaignId='FEST-'+g('Brand Name').toUpperCase().replace(/[^A-Z0-9]/g,'').substring(0,8)+'-'+g('Festival').toUpperCase().replace(/[^A-Z0-9]/g,'').substring(0,6)+'-'+Date.now().toString(36).toUpperCase();\nreturn [{json:{\n  festival:g('Festival'),\n  productName:g('Product Name'),\n  category:g('Product Category'),\n  productDesc:g('Product Details & Key Features'),\n  price:g('MRP & Festival Offer'),\n  targetAudience:g('Target Audience'),\n  brandName:g('Brand Name'),\n  brandVoice:g('Brand Voice'),\n  campaignDuration:g('Campaign Duration (Days)'),\n  competitors:g('Competitor Brands'),\n  availableOn:g('Available On'),\n  ownerName:g('Brand Owner Name'),\n  ownerEmail:g('Brand Owner Email'),\n  agentName:g('Your Name'),\n  agencyName:g('Agency Name'),\n  agentEmail:g('Your Email'),\n  campaignId,\n  timestamp:new Date().toISOString(),\n  dateGenerated:new Date().toLocaleDateString('en-IN',{year:'numeric',month:'long',day:'numeric'})\n}}];"
+      },
+      "id": "46b3d3de-5aa2-44d6-94cd-6b77109083bc",
+      "name": "🔧 Parse + Campaign ID1",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -1136,
+        6736
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-lite:generateContent",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpQueryAuth",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify({ contents: [{ role: 'user', parts: [{ text: 'You are a senior festival marketing strategist specializing in Indian D2C brands. Analyze the festival context and generate cultural intelligence for campaign creation.\\n\\nFESTIVAL: ' + $json.festival + '\\nPRODUCT: ' + $json.productName + ' (' + $json.category + ')\\nBRAND: ' + $json.brandName + '\\nTARGET: ' + $json.targetAudience + '\\nCOMPETITORS: ' + ($json.competitors || 'None specified') + '\\nCAMPAIGN DURATION: ' + $json.campaignDuration + '\\n\\nGenerate EXACT JSON:\\n{\\n  \"festival_context\": \"What this festival means culturally and emotionally to Indian consumers. 3 sentences.\",\\n  \"shopping_behavior\": \"How consumers shop during this festival — what they buy, gifting patterns, budget mindset, impulse vs planned. 3 sentences.\",\\n  \"emotional_triggers\": [\"5 emotional triggers specific to this festival that drive purchases — e.g. gifting guilt, self-reward, tradition, renewal, celebration\"],\\n  \"festival_hashtags\": [\"20 trending and relevant hashtags for this festival including branded ones\"],\\n  \"color_palette\": \"Festival-appropriate colors for creatives — e.g. Diwali: gold/maroon/orange, Holi: multicolor/vibrant, Christmas: red/green/gold\",\\n  \"greeting_styles\": [\"3 festival greeting openers that can start ads/emails — culturally appropriate and warm\"],\\n  \"gifting_angle\": \"How this product can be positioned as the perfect festival gift. 2 sentences.\",\\n  \"self_purchase_angle\": \"How to position this as a treat-yourself festival purchase. 2 sentences.\",\\n  \"urgency_hooks\": [\"5 festival-specific urgency hooks — e.g. Limited Diwali Edition, Festival stock running out, Last day of festive offer\"],\\n  \"competitor_festival_gaps\": \"What competitors typically miss during this festival that this brand can exploit. 2 sentences.\",\\n  \"recommended_discount_structure\": {\"primary_offer\": \"Best offer type for this festival+category\", \"bundle_offer\": \"Festival bundle suggestion\", \"early_bird\": \"Pre-festival early access offer\", \"last_day\": \"Last day urgency offer\"},\\n  \"campaign_phases\": [{\"phase\": \"Phase name\", \"days\": \"Day range\", \"objective\": \"What to achieve\", \"channels\": \"Which platforms\"}],\\n  \"festival_image_prompt\": \"Detailed AI image generation prompt for a stunning festival-themed product visual. Include festival elements (diyas for Diwali, colors for Holi, etc), product placement, lighting, mood. 100 words.\",\\n  \"festival_story_prompt\": \"AI image prompt for Instagram story visual — vertical 9:16, festival themed, eye-catching. 80 words.\"\\n}\\n\\nAll insights must be specific to ' + $json.festival + ' in India. Return ONLY valid JSON. No markdown no backticks.' }] }], generationConfig: { temperature: 0.8, maxOutputTokens: 3000 } }) }}",
+        "options": {}
+      },
+      "id": "7f30009b-786f-4cea-bde5-d3c844e0f368",
+      "name": "🧠 AGENT 1: Festival Intelligence1",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -928,
+        6736
+      ],
+      "credentials": {
+        "httpQueryAuth": {
+          "id": "SCFIE3udZwAl5Kbz",
+          "name": "Query Auth account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const aiResp=$input.first().json;const d=$('🔧 Parse + Campaign ID1').first().json;\nlet intel={};\ntry{\n  const raw=aiResp?.candidates?.[0]?.content?.parts?.[0]?.text||'{}';\n  intel=JSON.parse(raw.replace(/```json\\n?/g,'').replace(/```\\n?/g,'').trim());\n}catch(e){\n  intel={festival_context:d.festival+' is a major Indian festival.',shopping_behavior:'Consumers shop actively.',emotional_triggers:['celebration','gifting','tradition','renewal','joy'],festival_hashtags:['#'+d.festival,'#FestiveSale','#FestiveOffer'],color_palette:'Festival colors',greeting_styles:['Happy '+d.festival+'!'],gifting_angle:'Great festival gift.',self_purchase_angle:'Treat yourself this '+d.festival,urgency_hooks:['Limited '+d.festival+' stock!'],competitor_festival_gaps:'Competitors miss personalization.',recommended_discount_structure:{primary_offer:'Flat 30% off',bundle_offer:'Buy 2 Get 1',early_bird:'Extra 10% for early birds',last_day:'Additional 5% on last day'},campaign_phases:[{phase:'Pre-Festival',days:'Day 1-3',objective:'Build anticipation',channels:'Email + Social'}],festival_image_prompt:'Festive product shot with '+d.festival+' elements',festival_story_prompt:'Vertical story with '+d.festival+' theme'};\n}\nreturn [{json:{...d,intel}}];"
+      },
+      "id": "19d1eea4-9e77-4ce8-a1ff-0d6cec8eee6a",
+      "name": "📊 Parse Festival Intel1",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -736,
+        6736
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-lite:generateContent",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpQueryAuth",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify({ contents: [{ role: 'user', parts: [{ text: $json.agent2Prompt }] }], generationConfig: { temperature: 0.8, maxOutputTokens: 28000, thinkingConfig: { thinkingBudget: 0 } } }) }}",
+        "options": {}
+      },
+      "id": "a3524cb7-c951-4fee-8e90-2b95798167fa",
+      "name": "✍️ AGENT 2: Festival Copywriter (50+ assets)1",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -320,
+        6736
+      ],
+      "credentials": {
+        "httpQueryAuth": {
+          "id": "SCFIE3udZwAl5Kbz",
+          "name": "Query Auth account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const aiResp=$input.first().json;const d=$('📊 Parse Festival Intel1').first().json;\nlet kit={};\ntry{\n  // Search all parts for the text payload (2.5 models can return multiple parts)\n  let raw='';\n  const parts=aiResp?.candidates?.[0]?.content?.parts||[];\n  for(const p of parts){ if(p && p.text){ raw+=p.text; } }\n  if(!raw) raw='{}';\n  // Strip markdown fences, then isolate the JSON object\n  let t=raw.replace(/```json/gi,'').replace(/```/g,'').trim();\n  const s=t.indexOf('{'), e=t.lastIndexOf('}');\n  if(s>=0 && e>s) t=t.substring(s,e+1);\n  kit=JSON.parse(t);\n}catch(e){\n  kit={campaign_name:d.festival+' Special',campaign_tagline:'Celebrate with '+d.brandName,ad_fb_festive_1:'Happy '+d.festival+'! Introducing '+d.productName,ad_fb_festive_2:'Treat yourself this '+d.festival,ad_fb_festive_3:'Limited '+d.festival+' stock!',ad_fb_festive_4:d.festival+' combo offer',ad_insta_festive_1:'✨'+d.festival+' vibes with '+d.productName,ad_insta_festive_2:'Gift guide',ad_insta_story:'🎁 Swipe up!',ad_google_1:d.productName+' '+d.festival+' offer',ad_google_2:'Shop '+d.festival,ad_youtube_15s:'This '+d.festival+'...',email_teaser:'Subject: Something special is coming this '+d.festival,email_early_access:'Subject: Early access — '+d.festival+' offer',email_launch:'Subject: '+d.festival+' SALE IS LIVE!',email_reminder:'Subject: '+d.festival+' offer ends soon',email_last_day:'Subject: LAST DAY — '+d.festival,email_extended:'Subject: Extended!',email_gift_guide:'Subject: '+d.festival+' gift guide',email_cart_recovery:'Subject: Your '+d.festival+' cart is waiting',email_post_festival:'Subject: Thank you for celebrating with us',social_insta_1:'Happy '+d.festival+'! ✨',social_insta_2:'Real reviews',social_insta_3:'Gift guide',social_reel_script:'Festival reel',social_reel_trending:'Trending reel',social_fb:d.festival+' special!',social_twitter:d.festival+' offer live!',social_linkedin:d.festival+' initiative',whatsapp_broadcast:'🎉 '+d.festival+' SALE!',whatsapp_status:'🔥 '+d.festival+' offer!',whatsapp_catalog:d.productName+' | '+d.price,influencer_brief:'Festival unboxing',influencer_pitch:'Festival collab',website_banner_headline:d.festival+' Sale Live',website_popup_copy:'Grab '+d.festival+' offer!',sms_campaign:d.festival+' sale! '+d.price,push_notification:'title: '+d.festival+' Sale!',festival_content_calendar:[{day:1,platform:'Instagram',type:'Reel',content:'Reveal',time:'12PM',objective:'Awareness'}],discount_timeline:[{phase:'Early Bird',days:'Day 1-2',offer:'Extra 10% off',messaging:'Exclusive early access'}],festival_seo_keywords:[d.festival+' offer',d.productName+' '+d.festival],campaign_brief_summary:'Complete '+d.festival+' campaign ready.'};\n}\nreturn [{json:{...d,kit}}];"
+      },
+      "id": "ef32b14d-ba7f-4db8-b784-8a30af2d415b",
+      "name": "🔀 Parse Campaign Kit1",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -128,
+        6736
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-image:generateContent",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpQueryAuth",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify({ contents: [{ role: 'user', parts: [{ text: ($('📊 Parse Festival Intel1').first().json.intel.festival_image_prompt || 'Festive product shot of ' + $json.productName + ' with ' + $json.festival + ' decorations, warm lighting, celebration mood') + '. Style: Instagram marketing post, square 1:1, vibrant festive aesthetic, premium product photography, ultra high quality.' }] }], generationConfig: { responseModalities: ['IMAGE', 'TEXT'], temperature: 0.8 } }) }}",
+        "options": {}
+      },
+      "id": "3f787c48-0a48-40fb-9e7d-c1315020a22f",
+      "name": "🎨 AGENT 3: Gemini Image — Festival Visual1",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        80,
+        6736
+      ],
+      "credentials": {
+        "httpQueryAuth": {
+          "id": "SCFIE3udZwAl5Kbz",
+          "name": "Query Auth account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-image:generateContent",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpQueryAuth",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify({ contents: [{ role: 'user', parts: [{ text: ($('📊 Parse Festival Intel1').first().json.intel.festival_story_prompt || 'Vertical Instagram story visual for ' + $('📊 Parse Festival Intel1').first().json.festival + ' sale, eye-catching festival themed') + '. Style: Instagram story, vertical 9:16, bold text space at top, festive colors, premium, attention-grabbing.' }] }], generationConfig: { responseModalities: ['IMAGE', 'TEXT'], temperature: 0.8 } }) }}",
+        "options": {}
+      },
+      "id": "98f692de-8ab5-4f66-97cc-5670e6566382",
+      "name": "🎨 AGENT 3b: Gemini Image — Story Visual1",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        272,
+        6736
+      ],
+      "credentials": {
+        "httpQueryAuth": {
+          "id": "SCFIE3udZwAl5Kbz",
+          "name": "Query Auth account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const festImgResp=$('🎨 AGENT 3: Gemini Image — Festival Visual1').first().json;\nconst storyImgResp=$('🎨 AGENT 3b: Gemini Image — Story Visual1').first().json;\nconst bannerImgResp=$input.first().json;\nconst d=$('🔀 Parse Campaign Kit1').first().json;\n\nconst grab=(resp)=>{try{const parts=resp?.candidates?.[0]?.content?.parts||[];for(const p of parts){const dd=p.inlineData||p.inline_data;if(dd)return{data:dd.data,mime:dd.mimeType||'image/png'};}}catch(e){}return null;};\n\nconst fest=grab(festImgResp), story=grab(storyImgResp), banner=grab(bannerImgResp);\nconst safe=d.brandName.replace(/[^a-zA-Z0-9]/g,'_').substring(0,20);\n\nconst binary={};\nif(fest) binary.festiveVisual={data:fest.data,mimeType:fest.mime,fileName:d.festival+'_Product_'+safe+'.png',fileExtension:'png'};\nif(story) binary.storyVisual={data:story.data,mimeType:story.mime,fileName:d.festival+'_Story_'+safe+'.png',fileExtension:'png'};\nif(banner) binary.bannerVisual={data:banner.data,mimeType:banner.mime,fileName:d.festival+'_AdBanner_'+safe+'.png',fileExtension:'png'};\n\nreturn [{json:{...d,hasFestImg:!!fest,hasStoryImg:!!story,hasBannerImg:!!banner,imageCount:[fest,story,banner].filter(Boolean).length},binary}];"
+      },
+      "id": "90703511-5e19-4f19-b630-6d60fba3419a",
+      "name": "📦 Package Images1",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        672,
+        6736
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "1-mwqHghA5DQ-d8CRktoG_-2ODq-KZhE856fObljXitk",
+          "mode": "list",
+          "cachedResultName": "Festival_Campaigns_Tab",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1-mwqHghA5DQ-d8CRktoG_-2ODq-KZhE856fObljXitk/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 1150278553,
+          "mode": "list",
+          "cachedResultName": "Festival_Campaigns_Tab.csv",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1-mwqHghA5DQ-d8CRktoG_-2ODq-KZhE856fObljXitk/edit#gid=1150278553"
+        },
+        "columns": {
+          "mappingMode": "autoMapInputData",
+          "value": {},
+          "matchingColumns": [],
+          "schema": [],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "id": "14e96e14-7135-49e8-9056-1d6737dbd9a3",
+      "name": "📊 Log to Campaigns Sheet1",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [
+        2704,
+        6480
+      ],
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "lM5GqykwCIsB4x6n",
+          "name": "Google Sheets OAuth2 API"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const d=$input.first().json;\nif(!d.qa){d.qa={overall_score:0,festival_relevance:0,emotional_resonance:0,copywriting_quality:0,offer_attractiveness:0,cta_strength:0,channel_coverage:0,top_3_strengths:[],top_3_improvements:[],ready_to_deploy:false,qa_verdict:'QA pending'};}\nif(!d.kit)d.kit={};\nif(!d.intel)d.intel={};const k=d.kit;const intel=d.intel;\nconst c={bg:'#0d1117',card:'#161b22',border:'#1e293b',orange:'#f97316',blue:'#2563eb',teal:'#0d9488',green:'#22c55e',purple:'#8b5cf6',yellow:'#f59e0b',pink:'#ec4899',cyan:'#06b6d4',red:'#ef4444',white:'#ffffff',light:'#e2e8f0',gray:'#94a3b8'};\nconst S=(t)=>{if(t==null)return'';if(typeof t==='string')return t;if(typeof t==='number'||typeof t==='boolean')return String(t);if(Array.isArray(t)){if(t.every(x=>x==null||typeof x==='string'||typeof x==='number'))return t.filter(x=>x!=null).join(', ');return t.map(x=>S(x)).join('\\n\\n');}if(typeof t==='object'){return Object.entries(t).map(([k,v])=>{const label=k.replace(/_/g,' ').replace(/\\b\\w/g,c=>c.toUpperCase());const fv=S(v);return fv.indexOf('\\n')>=0?(label+':\\n'+fv):(label+': '+fv);}).join('\\n');}return String(t);};\nconst sec=(i,t,ct,cl)=>'<div style=\"margin-bottom:16px;\"><div style=\"background:'+c.card+';border-radius:8px;overflow:hidden;border:1px solid '+c.border+';\"><div style=\"background:linear-gradient(135deg,'+cl+' 0%,'+cl+'99 100%);padding:12px 16px;\"><h2 style=\"margin:0;color:#fff;font-size:14px;font-weight:700;\">'+i+'  '+t+'</h2></div><div style=\"padding:14px;\">'+ct+'</div></div></div>';\nconst cb=(l,t)=>'<div style=\"background:'+c.bg+';border-radius:6px;padding:12px;margin:6px 0;border:1px solid '+c.border+';\"><p style=\"color:'+c.gray+';font-size:10px;margin:0 0 6px;text-transform:uppercase;letter-spacing:1px;\">'+l+'</p><p style=\"color:'+c.light+';font-size:13px;line-height:1.6;margin:0;white-space:pre-wrap;\">'+S(t).replace(/\\n/g,'<br>')+'</p></div>';\nconst tb=(t)=>'<p style=\"color:'+c.light+';font-size:13px;line-height:1.7;margin:0;white-space:pre-wrap;\">'+S(t).replace(/\\n/g,'<br>')+'</p>';\nconst disc=(k.discount_timeline||[]).map(p=>'<tr style=\"border-bottom:1px solid '+c.border+';\"><td style=\"padding:8px 10px;color:'+c.orange+';font-weight:600;font-size:12px;\">'+p.phase+'</td><td style=\"padding:8px 10px;color:'+c.light+';font-size:12px;\">'+p.days+'</td><td style=\"padding:8px 10px;color:'+c.green+';font-size:12px;font-weight:600;\">'+p.offer+'</td><td style=\"padding:8px 10px;color:'+c.gray+';font-size:12px;\">'+p.messaging+'</td></tr>').join('');\nconst cal=(k.festival_content_calendar||[]).map(day=>'<tr style=\"border-bottom:1px solid '+c.border+';\"><td style=\"padding:6px 8px;color:'+c.orange+';font-weight:bold;font-size:11px;\">Day '+day.day+'</td><td style=\"padding:6px 8px;color:'+c.light+';font-size:11px;\">'+day.platform+'</td><td style=\"padding:6px 8px;color:'+c.light+';font-size:11px;\">'+day.type+'</td><td style=\"padding:6px 8px;color:'+c.light+';font-size:11px;\">'+day.content+'</td><td style=\"padding:6px 8px;color:'+c.teal+';font-size:11px;\">'+day.time+'</td></tr>').join('');\nconst kwds=(k.festival_seo_keywords||[]).map(kw=>'<span style=\"display:inline-block;background:'+c.bg+';padding:3px 10px;border-radius:12px;margin:2px 4px;border:1px solid '+c.border+';color:'+c.light+';font-size:11px;\">'+kw+'</span>').join('');\nconst email='<div style=\"background:'+c.bg+';padding:0;font-family:Segoe UI,Arial,sans-serif;max-width:720px;margin:0 auto;\">'+\n'<div style=\"background:linear-gradient(135deg,#f97316 0%,#dc2626 100%);padding:32px 24px;text-align:center;border-radius:8px 8px 0 0;\"><div style=\"font-size:36px;margin:0 0 8px;\">🎁</div><h1 style=\"margin:0;color:#fff;font-size:20px;font-weight:800;\">'+d.festival.toUpperCase()+' CAMPAIGN KIT</h1><p style=\"margin:6px 0 0;color:#fed7aa;font-size:14px;\">'+d.productName+' by '+d.brandName+'</p><p style=\"margin:4px 0 0;color:#fbbf24;font-size:16px;font-weight:700;\">'+(k.campaign_name||'')+' • '+(k.campaign_tagline||'')+'</p><p style=\"margin:4px 0 0;color:#fed7aa;font-size:12px;\">Campaign ID: '+d.campaignId+'</p></div>'+\n'<div style=\"background:'+c.card+';padding:24px;border:1px solid '+c.border+';border-top:none;\">'+\nsec('🧠','FESTIVAL INTELLIGENCE (Agent 1)',cb('FESTIVAL CONTEXT',intel.festival_context)+cb('SHOPPING BEHAVIOR',intel.shopping_behavior)+cb('EMOTIONAL TRIGGERS',(intel.emotional_triggers||[]).join(' • '))+cb('GIFTING ANGLE',intel.gifting_angle)+cb('SELF-PURCHASE ANGLE',intel.self_purchase_angle)+cb('COMPETITOR GAPS',intel.competitor_festival_gaps),c.teal)+\nsec('💰','DISCOUNT STRATEGY','<table style=\"width:100%;border-collapse:collapse;\"><tr style=\"border-bottom:2px solid '+c.green+';\"><th style=\"text-align:left;padding:6px 10px;color:'+c.green+';font-size:11px;\">Phase</th><th style=\"text-align:left;padding:6px 10px;color:'+c.green+';font-size:11px;\">Days</th><th style=\"text-align:left;padding:6px 10px;color:'+c.green+';font-size:11px;\">Offer</th><th style=\"text-align:left;padding:6px 10px;color:'+c.green+';font-size:11px;\">Messaging</th></tr>'+disc+'</table>',c.green)+\nsec('📢','FACEBOOK ADS (4 angles)',cb(d.festival+' GIFTING',k.ad_fb_festive_1)+cb('SELF-TREAT',k.ad_fb_festive_2)+cb('URGENCY / LIMITED',k.ad_fb_festive_3)+cb('BUNDLE / COMBO',k.ad_fb_festive_4),c.blue)+\nsec('📸','INSTAGRAM ADS',cb('LIFESTYLE MOMENT',k.ad_insta_festive_1)+cb('GIFT GUIDE',k.ad_insta_festive_2)+cb('STORY AD',k.ad_insta_story),c.pink)+\nsec('🔍','GOOGLE ADS',cb('AD 1',k.ad_google_1)+cb('AD 2',k.ad_google_2),c.teal)+\nsec('🎬','YOUTUBE',cb('15-SEC PRE-ROLL',k.ad_youtube_15s),c.red)+\nsec('📧','EMAIL SEQUENCE (9 festival emails)',cb('TEASER (Pre-Festival)',k.email_teaser)+cb('EARLY ACCESS',k.email_early_access)+cb(d.festival+' LAUNCH 🚀',k.email_launch)+cb('REMINDER',k.email_reminder)+cb('LAST DAY ⏰',k.email_last_day)+cb('EXTENDED',k.email_extended)+cb('GIFT GUIDE 🎁',k.email_gift_guide)+cb('CART RECOVERY',k.email_cart_recovery)+cb('POST-FESTIVAL',k.email_post_festival),c.orange)+\nsec('📱','SOCIAL MEDIA (7 posts)',cb('INSTAGRAM — FESTIVAL GREETING',k.social_insta_1)+cb('INSTAGRAM — TESTIMONIAL',k.social_insta_2)+cb('INSTAGRAM — GIFT GUIDE CAROUSEL',k.social_insta_3)+cb('REEL SCRIPT',k.social_reel_script)+cb('TRENDING REEL CONCEPT',k.social_reel_trending)+cb('FACEBOOK',k.social_fb)+cb('TWITTER/X',k.social_twitter)+cb('LINKEDIN',k.social_linkedin),c.purple)+\nsec('💬','WHATSAPP (3 versions)',cb('BROADCAST',k.whatsapp_broadcast)+cb('STATUS',k.whatsapp_status)+cb('CATALOG MSG',k.whatsapp_catalog),c.green)+\nsec('🌐','WEBSITE + APP',cb('BANNER HEADLINE',k.website_banner_headline)+cb('EXIT POPUP',k.website_popup_copy)+cb('SMS CAMPAIGN',k.sms_campaign)+cb('PUSH NOTIFICATION',k.push_notification),c.blue)+\nsec('🤝','INFLUENCER',cb('CONTENT BRIEF',k.influencer_brief)+cb('PITCH EMAIL',k.influencer_pitch),c.pink)+\nsec('📅','CONTENT CALENDAR','<table style=\"width:100%;border-collapse:collapse;\"><tr style=\"border-bottom:2px solid '+c.orange+';\"><th style=\"text-align:left;padding:6px 8px;color:'+c.orange+';font-size:10px;\">Day</th><th style=\"text-align:left;padding:6px 8px;color:'+c.orange+';font-size:10px;\">Platform</th><th style=\"text-align:left;padding:6px 8px;color:'+c.orange+';font-size:10px;\">Type</th><th style=\"text-align:left;padding:6px 8px;color:'+c.orange+';font-size:10px;\">Content</th><th style=\"text-align:left;padding:6px 8px;color:'+c.orange+';font-size:10px;\">Time</th></tr>'+cal+'</table>',c.yellow)+\nsec('🔍','FESTIVAL SEO KEYWORDS','<p style=\"line-height:2;margin:0;\">'+kwds+'</p>',c.blue)+\nsec('🎨','AI-GENERATED FESTIVAL VISUALS (3)','<p style=\"color:'+c.light+';font-size:13px;margin:0 0 6px;\">'+(d.hasFestImg?'✅ Festival Product Visual':'❌ Festival visual failed')+'<br>'+(d.hasStoryImg?'✅ Instagram Story Visual (9:16)':'❌ Story visual failed')+'<br>'+(d.hasBannerImg?'✅ Ad Banner Visual (16:9)':'❌ Banner visual failed')+'</p><p style=\"color:'+c.gray+';font-size:11px;margin:8px 0 0;\">All '+(d.imageCount||0)+' images are attached to this email AND saved to your campaign Drive folder.</p>'+(d.driveFolderLink?'<a href=\"'+d.driveFolderLink+'\" style=\"display:inline-block;margin-top:8px;background:'+c.pink+';color:#fff;padding:8px 16px;border-radius:6px;text-decoration:none;font-size:12px;font-weight:700;\">📁 Open Campaign Drive Folder</a>':''),c.pink)+\nsec('🛡️','QUALITY ASSURANCE SCORE (Agent 4)','<div style=\"text-align:center;margin:0 0 12px;\"><span style=\"font-size:42px;font-weight:800;color:'+(d.qa.overall_score>=85?c.green:d.qa.overall_score>=70?c.yellow:c.red)+';\">'+d.qa.overall_score+'</span><span style=\"font-size:18px;color:'+c.gray+';\">/100</span><p style=\"color:'+c.light+';font-size:12px;margin:4px 0 0;font-style:italic;\">'+(d.qa.qa_verdict||'')+'</p></div><table style=\"width:100%;border-collapse:collapse;\"><tr><td style=\"padding:5px 8px;color:'+c.gray+';font-size:11px;\">Festival Relevance</td><td style=\"padding:5px 8px;color:'+c.white+';font-size:11px;text-align:right;font-weight:700;\">'+d.qa.festival_relevance+'/10</td><td style=\"padding:5px 8px;color:'+c.gray+';font-size:11px;\">Emotional Resonance</td><td style=\"padding:5px 8px;color:'+c.white+';font-size:11px;text-align:right;font-weight:700;\">'+d.qa.emotional_resonance+'/10</td></tr><tr><td style=\"padding:5px 8px;color:'+c.gray+';font-size:11px;\">Copywriting Quality</td><td style=\"padding:5px 8px;color:'+c.white+';font-size:11px;text-align:right;font-weight:700;\">'+d.qa.copywriting_quality+'/10</td><td style=\"padding:5px 8px;color:'+c.gray+';font-size:11px;\">Offer Attractiveness</td><td style=\"padding:5px 8px;color:'+c.white+';font-size:11px;text-align:right;font-weight:700;\">'+d.qa.offer_attractiveness+'/10</td></tr><tr><td style=\"padding:5px 8px;color:'+c.gray+';font-size:11px;\">CTA Strength</td><td style=\"padding:5px 8px;color:'+c.white+';font-size:11px;text-align:right;font-weight:700;\">'+d.qa.cta_strength+'/10</td><td style=\"padding:5px 8px;color:'+c.gray+';font-size:11px;\">Channel Coverage</td><td style=\"padding:5px 8px;color:'+c.white+';font-size:11px;text-align:right;font-weight:700;\">'+d.qa.channel_coverage+'/10</td></tr></table><div style=\"margin-top:10px;\"><p style=\"color:'+c.green+';font-size:11px;margin:0 0 4px;font-weight:700;\">✅ STRENGTHS</p>'+(d.qa.top_3_strengths||[]).map(s=>'<p style=\"color:'+c.light+';font-size:11px;margin:0 0 2px;\">• '+s+'</p>').join('')+'<p style=\"color:'+c.yellow+';font-size:11px;margin:8px 0 4px;font-weight:700;\">⚡ TO IMPROVE</p>'+(d.qa.top_3_improvements||[]).map(s=>'<p style=\"color:'+c.light+';font-size:11px;margin:0 0 2px;\">• '+s+'</p>').join('')+'</div>',d.qa.ready_to_deploy?c.green:c.yellow)+\n'<div style=\"margin:20px 0 0;padding:16px 0 0;border-top:1px solid '+c.border+';\"><table style=\"border-collapse:collapse;\"><tr><td style=\"padding-right:12px;vertical-align:top;\"><div style=\"width:44px;height:44px;background:'+c.orange+';border-radius:50%;text-align:center;line-height:44px;color:#fff;font-size:18px;font-weight:800;\">'+d.agentName.charAt(0).toUpperCase()+'</div></td><td style=\"vertical-align:top;\"><p style=\"margin:0;color:'+c.orange+';font-size:14px;font-weight:700;\">'+d.agentName+'</p><p style=\"margin:2px 0 0;color:'+c.gray+';font-size:12px;\">'+d.agencyName+'</p><p style=\"margin:2px 0 0;color:'+c.light+';font-size:12px;\">✉️ '+d.agentEmail+'</p></td></tr></table></div></div>'+\n'<div style=\"background:'+c.bg+';padding:12px;text-align:center;border-radius:0 0 8px 8px;border:1px solid '+c.border+';border-top:none;\"><p style=\"color:#475569;font-size:11px;margin:0;\">'+d.agencyName+' • '+d.festival+' Campaign Kit • '+d.campaignId+' • '+d.dateGenerated+'</p></div></div>';\n// Re-attach the 3 binary images from Package Images so Gmail can send them\nlet imgBinary = {};\ntry { imgBinary = $('📦 Package Images1').first().binary || {}; } catch(e) {}\nreturn [{ json: {...d, campaignEmail: email}, binary: imgBinary }];"
+      },
+      "id": "ae57fe5e-b7a6-4f4c-8721-3b48d48f1e7b",
+      "name": "📝 Build Campaign Kit Email1",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        2704,
+        6688
+      ]
+    },
+    {
+      "parameters": {
+        "sendTo": "={{ $json.agentEmail }}",
+        "subject": "={{ '🎁 ' + $json.festival + ' Campaign Ready: ' + $json.productName + ' (' + $json.brandName + ') | 50+ Assets + AI Visuals | ' + $json.campaignId }}",
+        "message": "={{ $json.campaignEmail }}",
+        "options": {
+          "attachmentsUi": {
+            "attachmentsBinary": [
+              {
+                "property": "festiveVisual"
+              },
+              {
+                "property": "storyVisual"
+              },
+              {
+                "property": "bannerVisual"
+              }
+            ]
+          }
+        }
+      },
+      "id": "c46ba3f3-6d64-460d-a872-d22797fbbe3b",
+      "name": "📧 Send Campaign Kit to Agent1",
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [
+        2896,
+        6688
+      ],
+      "webhookId": "d0637d19-28bf-4244-a8ef-fe119695eb37",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "xnQrnvjRL9ohOI2E",
+          "name": "Gmail OAuth2 API"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const d=$('🔀 Parse QA + Drive Link1').first().json;const k=d.kit||{};const intel=d.intel||{};\nconst qaSafe=d.qa||{overall_score:0,ready_to_deploy:false,qa_verdict:'QA pending'};\nd.qa=qaSafe;\nconst c={bg:'#0d1117',card:'#161b22',border:'#1e293b',blue:'#2563eb',green:'#22c55e',orange:'#f97316',teal:'#0d9488',purple:'#8b5cf6',white:'#ffffff',light:'#e2e8f0',gray:'#94a3b8'};\nconst S=(t)=>{if(t==null)return'';if(typeof t==='string')return t;if(typeof t==='number'||typeof t==='boolean')return String(t);if(Array.isArray(t)){if(t.every(x=>x==null||typeof x==='string'||typeof x==='number'))return t.filter(x=>x!=null).join(', ');return t.map(x=>S(x)).join('\\n\\n');}if(typeof t==='object'){return Object.entries(t).map(([k,v])=>{const label=k.replace(/_/g,' ').replace(/\\b\\w/g,c=>c.toUpperCase());const fv=S(v);return fv.indexOf('\\n')>=0?(label+':\\n'+fv):(label+': '+fv);}).join('\\n');}return String(t);};\nconst channels=[{n:'Facebook Ads (4 festival angles)',s:'Ready',c:c.blue},{n:'Instagram Ads + Story (3)',s:'Ready',c:c.purple},{n:'Google Ads (2)',s:'Ready',c:c.teal},{n:'YouTube Pre-Roll Script',s:'Ready',c:'#ef4444'},{n:'Email Sequence (9 festival emails)',s:'Ready',c:c.orange},{n:'Social Posts (7 platforms)',s:'Ready',c:c.purple},{n:'WhatsApp (3 versions)',s:'Ready',c:c.green},{n:'Website Banner + Popup + SMS + Push',s:'Ready',c:c.blue},{n:'Influencer Brief + Pitch',s:'Ready',c:'#ec4899'},{n:'AI-Generated Festival Visuals (2)',s:d.hasFestImg?'Generated':'Pending',c:'#ec4899'},{n:'Content Calendar',s:'Scheduled',c:c.teal}];\nconst chRows=channels.map(ch=>'<tr><td style=\"padding:8px 12px;border-bottom:1px solid '+c.border+';\"><table style=\"border-collapse:collapse;\"><tr><td style=\"width:24px;vertical-align:top;\"><div style=\"width:20px;height:20px;background:'+ch.c+'22;border-radius:50%;text-align:center;line-height:20px;font-size:11px;\">✅</div></td><td style=\"padding-left:8px;\"><span style=\"color:'+c.white+';font-size:12px;font-weight:600;\">'+ch.n+'</span> <span style=\"color:'+ch.c+';font-size:10px;\">'+ch.s+'</span></td></tr></table></td></tr>').join('');\nconst ds=(k.recommended_discount_structure||{});\nconst ownerEmail='<div style=\"background:'+c.bg+';padding:0;font-family:Segoe UI,Arial,sans-serif;max-width:700px;margin:0 auto;\">'+\n'<div style=\"background:linear-gradient(135deg,#2563eb 0%,#1d4ed8 100%);padding:28px 24px;text-align:center;border-radius:8px 8px 0 0;\"><h1 style=\"margin:0;color:#fff;font-size:18px;font-weight:800;\">Your '+d.festival+' Campaign Is Ready</h1><p style=\"margin:8px 0 0;color:#bfdbfe;font-size:13px;\">'+d.productName+' by '+d.brandName+' | '+(k.campaign_name||'')+'</p><p style=\"margin:4px 0 0;color:#93c5fd;font-size:11px;\">Campaign ID: '+d.campaignId+'</p></div>'+\n'<div style=\"background:'+c.card+';padding:20px;border:1px solid '+c.border+';border-top:none;border-radius:0 0 8px 8px;\">'+\n'<p style=\"color:'+c.light+';font-size:14px;line-height:1.7;margin:0 0 16px;\">Dear '+d.ownerName+',</p>'+\n'<p style=\"color:'+c.light+';font-size:14px;line-height:1.7;margin:0 0 20px;\">'+(k.campaign_brief_summary||'Your complete '+d.festival+' campaign has been prepared by '+d.agencyName+'.')+'</p>'+\n'<div style=\"background:'+c.bg+';border-radius:8px;padding:14px;margin:0 0 16px;border:1px solid '+c.border+';\"><h3 style=\"margin:0 0 10px;color:'+c.blue+';font-size:14px;\">📣 CAMPAIGN ASSETS (50+)</h3><table style=\"width:100%;border-collapse:collapse;\">'+chRows+'</table></div>'+\n'<div style=\"background:'+c.bg+';border-radius:8px;padding:14px;margin:0 0 16px;border:1px solid '+c.border+';\"><h3 style=\"margin:0 0 8px;color:'+c.green+';font-size:14px;\">💰 RECOMMENDED DISCOUNT STRATEGY</h3><table style=\"width:100%;border-collapse:collapse;\"><tr><td style=\"padding:4px 0;color:'+c.gray+';font-size:12px;width:100px;\">Primary</td><td style=\"padding:4px 0;color:'+c.green+';font-size:12px;font-weight:600;\">'+(ds.primary_offer||'')+'</td></tr><tr><td style=\"padding:4px 0;color:'+c.gray+';font-size:12px;\">Bundle</td><td style=\"padding:4px 0;color:'+c.light+';font-size:12px;\">'+(ds.bundle_offer||'')+'</td></tr><tr><td style=\"padding:4px 0;color:'+c.gray+';font-size:12px;\">Early Bird</td><td style=\"padding:4px 0;color:'+c.light+';font-size:12px;\">'+(ds.early_bird||'')+'</td></tr><tr><td style=\"padding:4px 0;color:'+c.gray+';font-size:12px;\">Last Day</td><td style=\"padding:4px 0;color:'+c.orange+';font-size:12px;font-weight:600;\">'+(ds.last_day||'')+'</td></tr></table></div>'+\n'<div style=\"background:'+c.bg+';border-radius:8px;padding:14px;margin:0 0 16px;border:1px solid '+c.border+';\"><h3 style=\"margin:0 0 8px;color:#ec4899;font-size:14px;\">🛡️ CAMPAIGN QUALITY SCORE</h3><div style=\"text-align:center;\"><span style=\"font-size:36px;font-weight:800;color:'+(d.qa.overall_score>=85?c.green:'#f59e0b')+';\">'+d.qa.overall_score+'</span><span style=\"font-size:16px;color:'+c.gray+';\">/100</span><p style=\"color:'+c.light+';font-size:12px;margin:4px 0 0;\">'+(d.qa.qa_verdict||'')+' '+(d.qa.ready_to_deploy?'✅ Ready to deploy':'⚠️ Minor review suggested')+'</p></div></div>'+'<div style=\"background:'+c.bg+';border-radius:8px;padding:14px;margin:0 0 16px;border:1px solid '+c.border+';\"><h3 style=\"margin:0 0 8px;color:#ec4899;font-size:14px;\">📁 CAMPAIGN ASSETS FOLDER</h3><p style=\"color:'+c.light+';font-size:12px;margin:0 0 8px;\">All AI-generated festival visuals are saved in your dedicated Google Drive folder.</p>'+(d.driveFolderLink?'<a href=\"'+d.driveFolderLink+'\" style=\"display:inline-block;background:#2563eb;color:#fff;padding:8px 16px;border-radius:6px;text-decoration:none;font-size:12px;font-weight:700;\">Open Drive Folder</a>':'')+'</div>'+'<div style=\"background:'+c.bg+';border-radius:8px;padding:14px;margin:0 0 16px;border:1px solid '+c.border+';\"><h3 style=\"margin:0 0 8px;color:'+c.green+';font-size:14px;\">📅 WHAT HAPPENS NEXT</h3><table style=\"width:100%;border-collapse:collapse;\"><tr><td style=\"padding:5px 0;color:'+c.light+';font-size:12px;\">📌 Ads deployed across Facebook, Instagram, Google within 24 hours</td></tr><tr><td style=\"padding:5px 0;color:'+c.light+';font-size:12px;\">📌 Email sequence activated — pre-festival teasers start immediately</td></tr><tr><td style=\"padding:5px 0;color:'+c.light+';font-size:12px;\">📌 Social content calendar starts Day 1</td></tr><tr><td style=\"padding:5px 0;color:'+c.light+';font-size:12px;\">📌 Influencer outreach begins this week</td></tr><tr><td style=\"padding:5px 0;color:'+c.light+';font-size:12px;\">📌 Daily performance tracking begins at launch</td></tr></table></div>'+\n'<div style=\"margin:16px 0 0;padding:14px 0 0;border-top:1px solid '+c.border+';\"><table style=\"border-collapse:collapse;\"><tr><td style=\"padding-right:12px;vertical-align:top;\"><div style=\"width:40px;height:40px;background:'+c.blue+';border-radius:50%;text-align:center;line-height:40px;color:#fff;font-size:16px;font-weight:800;\">'+d.agentName.charAt(0).toUpperCase()+'</div></td><td style=\"vertical-align:top;\"><p style=\"margin:0;color:'+c.blue+';font-size:13px;font-weight:700;\">'+d.agentName+'</p><p style=\"margin:2px 0 0;color:'+c.gray+';font-size:11px;\">'+d.agencyName+'</p><p style=\"margin:2px 0 0;color:'+c.light+';font-size:11px;\">✉️ '+d.agentEmail+'</p></td></tr></table></div></div></div>';\nreturn [{json:{...d,ownerEmailHTML:ownerEmail}}];"
+      },
+      "id": "6f1d38e5-e81a-451a-8c2d-1e0cee3463d0",
+      "name": "📝 Build Owner Campaign Brief1",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        3104,
+        6688
+      ]
+    },
+    {
+      "parameters": {
+        "sendTo": "={{ $json.ownerEmail }}",
+        "subject": "={{ '🎁 Your ' + $json.festival + ' Campaign Is Ready — ' + $json.productName + ' | ' + $json.agencyName }}",
+        "message": "={{ $json.ownerEmailHTML }}",
+        "options": {
+          "replyTo": "={{ $json.agentEmail }}"
+        }
+      },
+      "id": "0e287244-9494-4dbe-9d14-4e591a70016c",
+      "name": "📧 Send Brief to Owner1",
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [
+        3296,
+        6688
+      ],
+      "webhookId": "0bef7c53-8030-41f8-9b27-6138308f7db1",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "xnQrnvjRL9ohOI2E",
+          "name": "Gmail OAuth2 API"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-image:generateContent",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpQueryAuth",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify({ contents: [{ role: 'user', parts: [{ text: 'Festive advertising banner for ' + $('📊 Parse Festival Intel1').first().json.festival + ' sale. Product: ' + $('📊 Parse Festival Intel1').first().json.productName + '. ' + ($('📊 Parse Festival Intel1').first().json.intel.color_palette || 'festive colors') + '. Leave clear empty space at top third for headline text overlay. Eye-catching, premium e-commerce ad creative, landscape 16:9, ultra high quality.' }] }], generationConfig: { responseModalities: ['IMAGE','TEXT'], temperature: 0.8 } }) }}",
+        "options": {}
+      },
+      "id": "c58700a7-9aef-418d-a9cb-2ff39e7084bf",
+      "name": "🎨 AGENT 3c: Gemini Image — Ad Banner1",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        480,
+        6736
+      ],
+      "credentials": {
+        "httpQueryAuth": {
+          "id": "SCFIE3udZwAl5Kbz",
+          "name": "Query Auth account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "folder",
+        "name": "={{ '🎁 ' + $json.festival + ' Campaign — ' + $json.brandName + ' (' + $json.campaignId + ')' }}",
+        "driveId": {
+          "__rl": true,
+          "mode": "list",
+          "value": "My Drive"
+        },
+        "folderId": {
+          "__rl": true,
+          "mode": "list",
+          "value": "root",
+          "cachedResultName": "/ (Root folder)"
+        },
+        "options": {}
+      },
+      "id": "c22e9d14-dba3-4633-9ec3-5be8a5acdb52",
+      "name": "🏗️ Create Campaign Drive Folder1",
+      "type": "n8n-nodes-base.googleDrive",
+      "typeVersion": 3,
+      "position": [
+        880,
+        6576
+      ],
+      "credentials": {
+        "googleDriveOAuth2Api": {
+          "id": "CAhkYV0qqMuaxLRj",
+          "name": "Google Drive OAuth2 API"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-lite:generateContent",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpQueryAuth",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify({ contents: [{ role: 'user', parts: [{ text: $json.qaPrompt }] }], generationConfig: { temperature: 0.4, maxOutputTokens: 4000, thinkingConfig: { thinkingBudget: 0 } } }) }}",
+        "options": {}
+      },
+      "id": "e7ea2aec-623e-439e-9271-35290374869b",
+      "name": "🛡️ AGENT 4: Campaign QA Reviewer1",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        2240,
+        6592
+      ],
+      "credentials": {
+        "httpQueryAuth": {
+          "id": "SCFIE3udZwAl5Kbz",
+          "name": "Query Auth account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const qaResp=$input.first().json;\nconst d=$('📦 Package Images1').first().json;\nlet folderId='',folderLink='';\ntry{const folder=$('🏗️ Create Campaign Drive Folder1').first().json;folderId=folder.id||'';folderLink=folder.webViewLink||('https://drive.google.com/drive/folders/'+folderId);}catch(e){}\nlet qa={overall_score:0,festival_relevance:0,emotional_resonance:0,copywriting_quality:0,offer_attractiveness:0,cta_strength:0,channel_coverage:0,top_3_strengths:[],top_3_improvements:[],ready_to_deploy:false,qa_verdict:'QA review unavailable'};\ntry{\n  let raw='';\n  const parts=qaResp?.candidates?.[0]?.content?.parts||[];\n  for(const p of parts){ if(p && p.text){ raw+=p.text; } }\n  if(!raw) raw='{}';\n  let t=raw.replace(/```json/gi,'').replace(/```/g,'').trim();\n  const s=t.indexOf('{'), e=t.lastIndexOf('}');\n  if(s>=0 && e>s) t=t.substring(s,e+1);\n  qa=JSON.parse(t);\n}catch(e){}\nlet imgBin={};\ntry{imgBin=$('📦 Package Images1').first().binary||{};}catch(e){}\nreturn [{json:{...d,qa,driveFolderId:folderId,driveFolderLink:folderLink},binary:imgBin}];"
+      },
+      "id": "b30c10e7-7dbc-4039-949a-a0d17e2f4612",
+      "name": "🔀 Parse QA + Drive Link1",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        2448,
+        6592
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const d = $input.first().json;\nconst i = d.intel || {};\n\nconst prompt = `You are an award-winning Indian D2C copywriter (Ogilvy credentials) creating a complete ${d.festival} festival campaign. Use the festival intelligence below to write emotionally resonant, conversion-focused content.\n\n=== FESTIVAL INTELLIGENCE ===\nFestival: ${d.festival}\nContext: ${i.festival_context || ''}\nShopping Behavior: ${i.shopping_behavior || ''}\nEmotional Triggers: ${JSON.stringify(i.emotional_triggers || [])}\nGifting Angle: ${i.gifting_angle || ''}\nSelf-Purchase Angle: ${i.self_purchase_angle || ''}\nUrgency Hooks: ${JSON.stringify(i.urgency_hooks || [])}\nGreeting Styles: ${JSON.stringify(i.greeting_styles || [])}\nColor Palette: ${i.color_palette || ''}\nDiscount Structure: ${JSON.stringify(i.recommended_discount_structure || {})}\nCampaign Phases: ${JSON.stringify(i.campaign_phases || [])}\nHashtags: ${JSON.stringify(i.festival_hashtags || [])}\n\n=== PRODUCT ===\nProduct: ${d.productName} (${d.category})\nDetails: ${d.productDesc}\nPrice: ${d.price}\nBrand: ${d.brandName}\nVoice: ${d.brandVoice}\nAudience: ${d.targetAudience}\nAvailable: ${d.availableOn}\nDuration: ${d.campaignDuration}\nCompetitors: ${d.competitors || 'None'}\n\nGenerate EXACT JSON with these keys:\ncampaign_name, campaign_tagline, ad_fb_festive_1, ad_fb_festive_2, ad_fb_festive_3, ad_fb_festive_4, ad_insta_festive_1, ad_insta_festive_2, ad_insta_story, ad_google_1, ad_google_2, ad_youtube_15s, email_teaser, email_early_access, email_launch, email_reminder, email_last_day, email_extended, email_gift_guide, email_cart_recovery, email_post_festival, social_insta_1, social_insta_2, social_insta_3, social_reel_script, social_reel_trending, social_fb, social_twitter, social_linkedin, whatsapp_broadcast, whatsapp_status, whatsapp_catalog, influencer_brief, influencer_pitch, website_banner_headline, website_popup_copy, sms_campaign, push_notification, campaign_brief_summary.\n\nAlso include:\nfestival_content_calendar (array of objects: day, platform, type, content, time, objective),\ndiscount_timeline (array of objects: phase, days, offer, messaging),\nfestival_seo_keywords (array of 25 festival SEO keywords).\n\nCONTENT RULES:\n- Facebook ads: headline + body + CTA, under 125 words each. ad_fb_festive_1=gifting angle, 2=self-treat, 3=urgency/limited, 4=bundle/combo.\n- Instagram ads: 150 words, 25 hashtags. ad_insta_story=25 words with emoji.\n- Google ads: H1/H2/H3 + 2 descriptions format.\n- ad_youtube_15s: 15-sec pre-roll script.\n- All 9 emails MUST include subject line + preview text + body.\n- Social posts with emojis and 25 hashtags where relevant.\n- 3 WhatsApp versions: broadcast (forward-friendly), status (30 words), catalog message.\n- Every piece must feel like ${d.festival} with festival language, greetings, emojis, cultural references.\n- Brand voice: ${d.brandVoice}. Indian English. INR prices.\n\nReturn ONLY valid JSON. No markdown, no backticks.`;\n\nreturn [{ json: { ...d, agent2Prompt: prompt } }];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -528,
+        6736
+      ],
+      "id": "3937045d-887e-4be0-a4be-adae4cc7823e",
+      "name": "🔧 Build Agent 2 Prompt1"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Build the QA review prompt as a clean JS template string\nconst d = $('📦 Package Images1').first().json;\nconst kitStr = JSON.stringify(d.kit || {}).substring(0, 6000);\n\nconst prompt = `You are a senior festival marketing QA director. Review this ${d.festival} campaign kit and score it honestly.\n\nCAMPAIGN KIT JSON (first 6000 chars):\n${kitStr}\n\nReturn ONLY this JSON structure with real scores based on the kit quality:\n{\n  \"overall_score\": 88,\n  \"festival_relevance\": 9,\n  \"emotional_resonance\": 9,\n  \"copywriting_quality\": 9,\n  \"offer_attractiveness\": 8,\n  \"cta_strength\": 9,\n  \"channel_coverage\": 9,\n  \"top_3_strengths\": [\"strength one\", \"strength two\", \"strength three\"],\n  \"top_3_improvements\": [\"improvement one\", \"improvement two\", \"improvement three\"],\n  \"ready_to_deploy\": true,\n  \"qa_verdict\": \"One-line verdict on campaign readiness\"\n}\n\nScore 1-10 per dimension, overall 0-100. Return ONLY valid JSON. No markdown, no backticks.`;\n\nreturn [{ json: { ...d, qaPrompt: prompt } }];"
+      },
+      "id": "23baf08b-1bd1-4e23-8d58-9df2c12ba295",
+      "name": "🔧 Build QA Prompt1",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        2032,
+        6592
+      ]
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "🔗 Attach Binary + Folder ID": {
+      "main": [
+        [
+          {
+            "node": "☁️ Upload Festival Visual",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "☁️ Upload Story Visual",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "☁️ Upload Ad Banner",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "☁️ Upload Festival Visual": {
+      "main": [
+        [
+          {
+            "node": "🔗 Wait for All Uploads",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "☁️ Upload Story Visual": {
+      "main": [
+        [
+          {
+            "node": "🔗 Wait for All Uploads",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "☁️ Upload Ad Banner": {
+      "main": [
+        [
+          {
+            "node": "🔗 Wait for All Uploads",
+            "type": "main",
+            "index": 2
+          }
+        ]
+      ]
+    },
+    "🔗 Wait for All Uploads": {
+      "main": [
+        [
+          {
+            "node": "🔧 Build QA Prompt1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "📋 Festival Campaign Form1": {
+      "main": [
+        [
+          {
+            "node": "🔧 Parse + Campaign ID1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "🔧 Parse + Campaign ID1": {
+      "main": [
+        [
+          {
+            "node": "🧠 AGENT 1: Festival Intelligence1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "🧠 AGENT 1: Festival Intelligence1": {
+      "main": [
+        [
+          {
+            "node": "📊 Parse Festival Intel1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "📊 Parse Festival Intel1": {
+      "main": [
+        [
+          {
+            "node": "🔧 Build Agent 2 Prompt1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "✍️ AGENT 2: Festival Copywriter (50+ assets)1": {
+      "main": [
+        [
+          {
+            "node": "🔀 Parse Campaign Kit1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "🔀 Parse Campaign Kit1": {
+      "main": [
+        [
+          {
+            "node": "🎨 AGENT 3: Gemini Image — Festival Visual1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "🎨 AGENT 3: Gemini Image — Festival Visual1": {
+      "main": [
+        [
+          {
+            "node": "🎨 AGENT 3b: Gemini Image — Story Visual1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "🎨 AGENT 3b: Gemini Image — Story Visual1": {
+      "main": [
+        [
+          {
+            "node": "🎨 AGENT 3c: Gemini Image — Ad Banner1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "📦 Package Images1": {
+      "main": [
+        [
+          {
+            "node": "🏗️ Create Campaign Drive Folder1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "📝 Build Campaign Kit Email1": {
+      "main": [
+        [
+          {
+            "node": "📧 Send Campaign Kit to Agent1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "📧 Send Campaign Kit to Agent1": {
+      "main": [
+        [
+          {
+            "node": "📝 Build Owner Campaign Brief1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "📝 Build Owner Campaign Brief1": {
+      "main": [
+        [
+          {
+            "node": "📧 Send Brief to Owner1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "🎨 AGENT 3c: Gemini Image — Ad Banner1": {
+      "main": [
+        [
+          {
+            "node": "📦 Package Images1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "🏗️ Create Campaign Drive Folder1": {
+      "main": [
+        [
+          {
+            "node": "🔗 Attach Binary + Folder ID",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "🛡️ AGENT 4: Campaign QA Reviewer1": {
+      "main": [
+        [
+          {
+            "node": "🔀 Parse QA + Drive Link1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "🔀 Parse QA + Drive Link1": {
+      "main": [
+        [
+          {
+            "node": "📊 Log to Campaigns Sheet1",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "📝 Build Campaign Kit Email1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "🔧 Build Agent 2 Prompt1": {
+      "main": [
+        [
+          {
+            "node": "✍️ AGENT 2: Festival Copywriter (50+ assets)1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "🔧 Build QA Prompt1": {
+      "main": [
+        [
+          {
+            "node": "🛡️ AGENT 4: Campaign QA Reviewer1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  },
+  "versionId": "919b867e-f023-4a35-b9c9-23de6270d994",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "c781746413bc3b9a8f095349e501236a150b16f04463a077ef70371e9f0f0ae0"
+  },
+  "id": "7a40hTUUZQZwJQgX",
+  "tags": []
+}
