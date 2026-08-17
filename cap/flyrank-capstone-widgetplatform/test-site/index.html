@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Test Customer Site</title>
+  <style>
+    body { font-family: sans-serif; max-width: 800px; margin: 40px auto; padding: 0 20px; color: #333; }
+    h1 { color: #222; }
+    .instructions { background: #f0f4ff; padding: 16px; border-radius: 8px; margin-bottom: 24px; border-left: 4px solid #0066cc; }
+    .instructions p { margin: 8px 0; }
+    code { background: #e8ecf0; padding: 2px 6px; border-radius: 3px; font-size: 13px; font-family: monospace; }
+    hr { border: none; border-top: 1px solid #e0e0e0; margin: 40px 0; }
+  </style>
+</head>
+<body>
+  <h1>Acme Corp — Test Customer Site</h1>
+
+  <div class="instructions">
+    <p><strong>This page simulates a customer's website on a different origin.</strong></p>
+    <p>Serve this file from a different port than the API, e.g.:</p>
+    <p><code>npx serve test-site -p 5500</code></p>
+    <p>Then visit <code>http://localhost:5500</code> to see the widget rendered cross-origin.</p>
+    <p>Replace <code>YOUR_WIDGET_ID</code> in the script tag below with a real widget ID from your API (run <code>npm run seed</code> to get one).</p>
+  </div>
+
+  <h2>Sign up for our newsletter</h2>
+  <p>The widget below is served from a different origin (localhost:3000) and submits back to the API.</p>
+
+  <!-- Widget ID from `npm run seed` — update if you re-seed -->
+  <script src="http://localhost:3000/widget.js?v=1.0.0" data-widget-id="20172939-4bd4-4853-8f85-8eecb246753c"></script>
+
+  <hr>
+  <p style="color:#999;font-size:12px">
+    This is a plain HTML test page demonstrating cross-origin widget embedding.
+    The widget script is served from <code>localhost:3000</code> and this page from <code>localhost:5500</code>.
+  </p>
+</body>
+</html>

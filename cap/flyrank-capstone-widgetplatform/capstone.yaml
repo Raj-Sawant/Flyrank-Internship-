@@ -1,0 +1,18 @@
+run: docker compose up
+seed: node src/seed.js
+test: node --test tests/*.test.js
+base_url: http://localhost:3000
+endpoints:
+  - POST /auth/register
+  - POST /auth/login
+  - GET /widgets
+  - POST /widgets
+  - GET /widgets/:id
+  - PUT /widgets/:id
+  - DELETE /widgets/:id
+  - GET /widgets/:id/snippet
+  - GET /widget.js
+  - GET /widgets/:id/config
+  - POST /submissions
+  - GET /dashboard/submissions
+  - GET /dashboard/stats
